@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    min-height: 100%;
+  }
+  
+  .signup-wrapper {
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    background-color: #fff;
+    position: relative;
+  }
+  
+  .back-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+  }
+  
+  .avatar {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  
+  p {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;  /* Ensures vertical stacking of inputs */
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  
+  input {
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;  /* Ensures input fields take up full width of form */
+    box-sizing: border-box; /* Makes sure padding does not affect width */
+  }
+  
+  .submit-btn {
+    background-color: #ffe066;
+    color: #000;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #ffd633;
+  }
+  
+  .login-text {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  
+  .apple-btn, .google-btn {
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border: none;
+  }
+  
+  .apple-btn {
+    background-color: black;
+    color: white;
+  }
+  
+  .google-btn {
+    background-color: white;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="signup.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="signup-wrapper">
+    <button class="back-btn">&#8592;</button>
+
+    <img src="assets/avatar.png" alt="Avatar" class="avatar"/>
+
+    <h1>Create account</h1>
+    <p>It is as easy as…</p>
+
+    <form id="signup-form">
+        <input type="text" placeholder="What should we call you?" required />
+        <input type="email" placeholder="Email Address" required />
+        <input type="password" placeholder="Password" required />
+        <input type="password" placeholder="Confirm Password" required />
+        <button type="submit" class="submit-btn">Sign up</button>
+      </form>
+
+    <p class="login-text">Already have an account? <a href="#">Log in</a></p>
+    <button id="google-signup-btn" class="google-btn"><img src="https://img.icons8.com/color/16/000000/google-logo.png"/> Sign up using Google</button>
+  </div>
+  <script type="module" src="signup.js"></script>
+
+</body>
+</html>
