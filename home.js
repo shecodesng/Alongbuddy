@@ -76,7 +76,7 @@ function initMap() {
       });
     }
   
-    if (locationBtn) {
+    if (activityBtn) {
       activityBtn.addEventListener("click", () => {
         window.location.href = "activity.html";
       });
@@ -87,6 +87,15 @@ function initMap() {
         window.location.href = "profile.html";
       });
     }
+    
+    const menuProfileBtn = document.getElementById("menu-profile-btn");
+    if (menuProfileBtn) {
+      menuProfileBtn.addEventListener("click", () => {
+        window.location.href = "profile.html";
+      });
+    }
+    
+
   });
   document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");

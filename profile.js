@@ -52,6 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "profile.html";
       });
     }
+
+    const menuProfileBtn = document.getElementById("menu-profile-btn");
+
+if (menuProfileBtn) {
+  menuProfileBtn.addEventListener("click", () => {
+    window.location.href = "profile.html";
+  });
+}
+
   
     // Profile image
     const profileImageUrl = ""; // Replace with dynamic value if available
