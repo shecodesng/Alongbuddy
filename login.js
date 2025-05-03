@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-// Firebase config
+
 const firebaseConfig = {
   apiKey: "AIzaSyCbh1J1DILrTp_Pr8VJQ7U66n9kVzZbDuQ",
   authDomain: "alongbuddy2024.firebaseapp.com",
@@ -23,11 +23,15 @@ loginForm.addEventListener("submit", async (e) => {
   const email = loginForm[0].value;
   const password = loginForm[1].value;
 
+
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     console.log("Logged in user:", userCredential.user);
     alert("Nice to have you back!");
-    // Redirect or load next page
+
+     // Redirect to the home page on successful login
+     window.location.href = 'home.html';  // Make sure 'home.html' is the correct path to your home page
+    
   } catch (error) {
     switch (error.code) {
         case "auth/user-not-found":
@@ -47,6 +51,7 @@ loginForm.addEventListener("submit", async (e) => {
       }
     }
   });
+  
 
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".back-btn").addEventListener("click", () => history.back());

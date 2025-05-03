@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search</title>
+  <link rel="stylesheet" href="search.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="header-container">
+        <button class="back-button" onclick="history.back()">←</button>
+        <h2>Where are we going?</h2>
+    </div>
+
+  <div class="search-page">
+    <label for="pickup">Your Location</label>
+    <input type="text" class="search-input" id="pickup" placeholder="Your location" />
+
+    <label for="dropoff">Destination</label>
+    <input type="text" class="search-input" id="dropoff" placeholder="Destination" />
+
+    <button id="go-btn">Go</button>
+  </div>
+
+  <script src="search.js"></script>
+</body>
+</html>

@@ -29,7 +29,7 @@ body {
     margin-bottom: 0.1px;
 }
 .dust {
-  width: 160px; /* Add semicolon */
+  width: 160px; 
   height: auto;
   z-index: 1;
   display: block;

@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .logo {
+    width: 150px;
+    height: auto;
+    position: absolute;  
+    top: 20px;  
+    left: 50%;  
+    transform: translateX(-50%);  
+  }
+  
+  .loader-container {
+    text-align: center;
+  }
+  
+  .runner {
+    width: 1519px; 
+    height: 1417px;
+    background: url("assets/images/spritesheet.png") 0 0 no-repeat;
+    animation: run 0.5s steps(8) infinite;
+    margin: 0 auto 20px auto;
+    background-size: 12152px 1417px;
+    transform: scale(0.3); 
+    transform-origin: center;
+  }
+  
+
+  
+  @keyframes run {
+    100% {
+      background-position: -12152px 0;
+    }
+  }
+  

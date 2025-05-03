@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Along Buddy - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Leaflet CSS -->
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<!-- Leaflet JS -->
+<script
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+></script>
+
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input type="text" placeholder="Where to?" id="searchInput" readonly/>
+    <button class="menu-icon">☰</button>
+  </div>
+
+  <div id="side-menu" class="hidden">
+    
+  <ul>
+    <li><button class="menu-item">Profile</button></li>
+    <li><button class="menu-item">Become a Contributor</button></li>
+    <li><button class="menu-item">Submit a Route</button></li>
+  </ul>
+  <button id="close-menu">←</button>
+    <img src="assets/Images/alonglogo.png" alt="Logo" class="menu-logo" />
+  </div>
+
+  <!-- Profile Card -->
+  <div class="profile-card">
+    <div class="avatar">
+      <img id="profileImage" src="assets/avatar.png" alt="Avatar" />
+    </div>
+    <div class="profile-info">
+      <p class="name">Daniel Chukwu</p>
+      <p class="handle">
+        <img src="assets/vector.png" class="icon" alt="icon" />
+        Daniel.base.eth
+      </p>
+      <p class="points">
+        <img src="assets/group.png" class="icon" alt="icon" />
+        20 Buddy Points
+      </p>
+      
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button id="profile-btn"><img src="assets/account_circle.png" alt="Account" /></button>
+    <button id="home-btn"><img src="assets/Home.png" alt="Home" /></button>
+    <button id="activity-btn"><img src="assets/Map pin.png" alt="Map" /></button>
+  </div>
+
+  <script src="home.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
+    
+</body>
+</html>
