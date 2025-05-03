@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile - Along Buddy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+  <div id="map"></div>
+
+  <div id="side-menu" class="hidden">
+        
+        <ul>
+          <li><button class="menu-item">Profile</button></li>
+          <li><button class="menu-item">Become a Contributor</button></li>
+          <li><button class="menu-item">Submit a Route</button></li>
+        </ul>
+        <button id="close-menu">←</button>
+          <img src="assets/Images/alonglogo.png" alt="Logo" class="menu-logo" />
+        </div>
+
+  <!-- Menu Button -->
+  <button id="menu-toggle" class="menu-icon">☰</button>
+
+  <!-- Full-screen Profile Section -->
+  <div class="profile-fullscreen">
+    <div class="avatar">
+      <img id="profileImage" src="assets/avatar.png" alt="Avatar" />
+    </div>
+    <div class="profile-info">
+      <p class="name">Daniel Chukwu</p>
+      <p class="handle"><img src="assets/vector.png" class="icon" /> Daniel.base.eth</p>
+      <p class="points"><img src="assets/group.png" class="icon" /> 20 Buddy Points</p>
+    </div>
+
+    <div class="action-buttons">
+      <button class="action-btn">Edit Profile</button>
+      <button class="action-btn">Become a Contributor</button>
+      <!-- Wallet Button -->
+      <button id="wallet-btn" class="wallet-button">Connect Wallet</button>
+
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="nav-buttons">
+    <button id="profile-btn"><img src="assets/account_circle.png" alt="Account" /></button>
+    <button id="home-btn"><img src="assets/Home.png" alt="Home" /></button>
+    <button id="activity-btn"><img src="assets/Map pin.png" alt="Map" /></button>
+  </div>
+
+  <script src="profile.js"></script>
+</body>
+</html>
