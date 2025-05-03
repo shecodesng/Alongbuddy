@@ -29,8 +29,7 @@ loginForm.addEventListener("submit", async (e) => {
     console.log("Logged in user:", userCredential.user);
     alert("Nice to have you back!");
 
-     // Redirect to the home page on successful login
-     window.location.href = 'home.html';  // Make sure 'home.html' is the correct path to your home page
+ window.location.href = 'home.html';  
     
   } catch (error) {
     switch (error.code) {
