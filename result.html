@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Along Buddy - Home</title>
+  <title>Along Buddy - result</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="result.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <!-- Leaflet CSS -->
 <link
@@ -22,41 +22,37 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 <body>
   <div id="map"></div>
 
-  <!-- Search -->
-  <div class="search-bar">
-    <input type="text" placeholder="Where to?" id="searchInput" readonly/>
-    <button class="menu-icon">☰</button>
-  </div>
-
   <div id="side-menu" class="hidden">
-    
-  <ul>
-    <li><button id="menu-profile-btn" class="menu-item">Profile</button></li>
-    <li><button class="menu-item">Become a Contributor</button></li>
-    <li><button class="menu-item">Submit a Route</button></li>
-  </ul>
-  <button id="close-menu">←</button>
+    <ul>
+      <li><button id="menu-profile-btn" class="menu-item">Profile</button></li>
+      <li><button class="menu-item">Become a Contributor</button></li>
+      <li><button class="menu-item">Submit a Route</button></li>
+    </ul>
+    <button id="close-menu">←</button>
     <img src="assets/Images/alonglogo.png" alt="Logo" class="menu-logo" />
   </div>
 
-  <!-- Profile Card -->
-  <div class="profile-card">
-    <div class="avatar">
-      <img id="profileImage" src="assets/avatar.png" alt="Avatar" />
+  <button id="menu-toggle" class="menu-icon">☰</button>
+
+<!-- Result Step Cards -->
+<div class="step-card-container">
+  <div class="step-card">
+    <div class="step-icon">
+      <img src="assets/Images/Walking.png" alt="Step Icon" />
     </div>
-    <div class="profile-info">
-      <p id="profileName"></p>
-      <p class="handle">
-        <img src="assets/vector.png" class="icon" />
-        <span id="baseNameText">Connect Base Name</span>
+    <div class="step-info">
+      <p class="step-text">Walk to the junction</p>
+      <p class="step-time">
+        <img src="assets/Images/clock.png" alt="Clock Icon" />
+        2 minutes
       </p>
-      <p class="points" id="pointsDisplay">
-        <img src="assets/group.png" class="icon" /> Loading Buddy Points...
-      </p>
-      
-      
     </div>
   </div>
+
+  <!-- Add more step-cards here if needed -->
+</div>
+
+
 
   <div class="nav-buttons">
     <button id="profile-btn"><img src="assets/account_circle.png" alt="Account" /></button>
@@ -64,7 +60,7 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     <button id="activity-btn"><img src="assets/Map pin.png" alt="Map" /></button>
   </div>
 
-  <script type="module" src="home.js"></script>
+  <script type="module" src="result.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   

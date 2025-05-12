@@ -28,8 +28,10 @@ loginForm.addEventListener("submit", async (e) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     console.log("Logged in user:", userCredential.user);
     alert("Nice to have you back!");
+    
 
- window.location.href = 'home.html';  
+     // Redirect to the home page on successful login
+     window.location.href = 'home.html';  // Make sure 'home.html' is the correct path to your home page
     
   } catch (error) {
     switch (error.code) {

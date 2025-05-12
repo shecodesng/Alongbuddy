@@ -8,49 +8,79 @@
   <link rel="stylesheet" href="profile.css" />
 </head>
 <body>
-  <div id="map"></div>
-
+  
   <div id="side-menu" class="hidden">
-        
-        <ul>
-          <li><button id="menu-profile-btn" class="menu-item">Profile</button></li>
-          <li><button class="menu-item">Become a Contributor</button></li>
-          <li><button class="menu-item">Submit a Route</button></li>
-        </ul>
-        <button id="close-menu">←</button>
-          <img src="assets/Images/alonglogo.png" alt="Logo" class="menu-logo" />
-        </div>
+    <ul>
+      <li><button id="menu-profile-btn" class="menu-item">Profile</button></li>
+      <li><button class="menu-item">Become a Contributor</button></li>
+      <li><button class="menu-item">Submit a Route</button></li>
+    </ul>
+    <button id="close-menu">←</button>
+    <img src="assets/Images/alonglogo.png" alt="Logo" class="menu-logo" />
+  </div>
 
-  <!-- Menu Button -->
   <button id="menu-toggle" class="menu-icon">☰</button>
 
-  <!-- Full-screen Profile Section -->
   <div class="profile-fullscreen">
     <div class="avatar">
       <img id="profileImage" src="assets/avatar.png" alt="Avatar" />
     </div>
     <div class="profile-info">
-      <p class="name">Daniel Chukwu</p>
-      <p class="handle"><img src="assets/vector.png" class="icon" /> Daniel.base.eth</p>
-      <p class="points"><img src="assets/group.png" class="icon" /> 20 Buddy Points</p>
+      <p id="profileName">No Name</p>
+      <p id="profileEmail">No Email</p>
+      <p class="handle">
+        <img src="assets/vector.png" class="icon" />
+        <span id="baseNameText">Connect Base Name</span>
+      </p>
+      <p class="points" id="pointsDisplay">
+        <img src="assets/group.png" class="icon" /> Loading Buddy Points...
+      </p>
+      
     </div>
 
     <div class="action-buttons">
-      <button class="action-btn">Edit Profile</button>
+      <button class="action-btn" id="editProfileBtn">Edit Profile</button>
       <button class="action-btn">Become a Contributor</button>
-      <!-- Wallet Button -->
-      <button id="wallet-btn" class="wallet-button">Connect Wallet</button>
-
+      <button class="action-btn" id="walletbuttonBtn">Connect Wallet</button>
+      <button class="action-btn" id="disconnectBtn" style="display: none;">Disconnect Wallet</button>
+<div id="connectionStatus"></div>
+<div class="handle"></div>
     </div>
   </div>
 
-  <!-- Bottom Navigation -->
+  <div id="connectionPopup" class="popup-top"></div>
+
+  <div id="baseNameModal">
+    <div class="modal-content">
+      <p>No Base Name found.</p>
+      <a href="https://app.basename.domains" target="_blank">Click here to register</a><br><br>
+      <button id="closeBaseNameModal">X Close</button>
+    </div>
+  </div>
   <div class="nav-buttons">
     <button id="profile-btn"><img src="assets/account_circle.png" alt="Account" /></button>
     <button id="home-btn"><img src="assets/Home.png" alt="Home" /></button>
     <button id="activity-btn"><img src="assets/Map pin.png" alt="Map" /></button>
   </div>
 
-  <script src="profile.js"></script>
+ <!-- Edit Profile Modal -->
+<div id="editModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-button" id="closeEditModal">&times;</span>
+    <h3>Edit Your Name</h3>
+    <input type="text" id="newNameInput" placeholder="Enter new name" />
+    <button id="confirmEditBtn">Save</button>
+    <p id="nameErrorMsg" style="color: red; display: none;"></p>
+  </div>
+</div>
+  </div>
+<!-- Put these in your HTML before your JS file -->
+<script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.1/dist/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+  <script src="profile.js" type="module"></script>
+ 
+ 
+
 </body>
 </html>

@@ -1,71 +1,89 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const fromInput = document.getElementById("pickup");
-    const toInput = document.getElementById("dropoff");
-  
-    // Function to convert coordinates to a more detailed address (reverse geocoding)
-    function getAddressFromCoordinates(lat, lon) {
-      const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&addressdetails=1&zoom=18`; // Added zoom for more details
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          if (data && data.address) {
-            const address = data.address;
-            let formattedAddress = '';
-  
-            // Prioritize road and house number
-            if (address.house_number) formattedAddress += `${address.house_number} `;
-            if (address.road) formattedAddress += `${address.road}, `;
-            if (address.suburb) formattedAddress += `${address.suburb}, `;
-            if (address.city) formattedAddress += `${address.city}, `;
-            if (address.country) formattedAddress += `${address.country}`;
-  
-            // If the address is still too general, display a more specific message
-            if (!formattedAddress) {
-              formattedAddress = "Could not retrieve detailed address";
-            }
-  
-            fromInput.value = formattedAddress; // Set the input to the detailed address
-          } else {
-            fromInput.placeholder = "Could not retrieve address";
-          }
-        })
-        .catch(error => {
-          fromInput.placeholder = "Error fetching address";
-          console.error("Error:", error);
-        });
-    }
-  
-    // Get current location with high accuracy and update the "Your Location" input
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          getAddressFromCoordinates(latitude, longitude); // Convert coordinates to address
-        },
-        () => {
-          fromInput.placeholder = "Could not detect location";
-        },
-        {
-          enableHighAccuracy: true, // Request high accuracy
-          timeout: 10000, // Timeout after 10 seconds
-          maximumAge: 0 // Don't use cached position
-        }
-      );
-    } else {
-      fromInput.placeholder = "Geolocation not supported";
-    }
-  
-    // Handle "Go" button click event for the destination
-    document.getElementById("go-btn").addEventListener("click", () => {
-      const from = fromInput.value;
-      const to = toInput.value;
-  
-      if (from && to) {
-        alert(`Searching directions from:\n${from}\nto:\n${to}`);
-        // Add your logic to load route or directions here
-      } else {
-        alert("Please enter both locations.");
-      }
-    });
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import {
+  getFirestore, collection, getDocs, query, where
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+// Firebase config and Firestore initialization
+const firebaseConfig = {
+  apiKey: "AIzaSyCbh1J1DILrTp_Pr8VJQ7U66n9kVzZbDuQ",
+  authDomain: "alongbuddy2024.firebaseapp.com",
+  projectId: "alongbuddy2024",
+  storageBucket: "alongbuddy2024.appspot.com", 
+  messagingSenderId: "920270734316",
+  appId: "1:920270734316:web:d3116e1fc237390915b6c9",
+  measurementId: "G-SN5JZLL878"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Load bus stops for a specific city
+async function loadBusStops(city) {
+  const fromSelect = document.getElementById("pickup");
+  const toSelect = document.getElementById("dropoff");
+
+  console.log("Loading bus stops for:", city);
+  const q = query(collection(db, "Routes"), where("city", "==", city));
+  const querySnapshot = await getDocs(q);
+
+  const busStops = new Set();
+
+  querySnapshot.forEach(doc => {
+    const start = doc.data().start;
+    const end = doc.data().end;
+    if (start) busStops.add(start);
+    if (end) busStops.add(end);
   });
-  
+
+  fromSelect.innerHTML = "";
+  toSelect.innerHTML = "";
+
+  busStops.forEach(stop => {
+    const optionFrom = document.createElement("option");
+    optionFrom.value = stop;
+    optionFrom.textContent = stop;
+    fromSelect.appendChild(optionFrom);
+
+    const optionTo = document.createElement("option");
+    optionTo.value = stop;
+    optionTo.textContent = stop;
+    toSelect.appendChild(optionTo);
+  });
+}
+
+// Get user's city and load bus stops
+async function getCityFromGeoLocation() {
+  try {
+    const pos = await new Promise((resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(resolve, reject)
+    );
+    const { latitude, longitude } = pos.coords;
+    console.log(`User's Location: Latitude: ${latitude}, Longitude: ${longitude}`);
+
+    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+    const data = await response.json();
+
+    const city = data.address.city || data.address.state || data.address.county;
+    console.log("Detected city:", city);
+
+    await loadBusStops(city);
+  } catch (error) {
+    console.error("Error getting city from geolocation:", error);
+  }
+}
+
+// Run when DOM is ready
+document.addEventListener("DOMContentLoaded", async () => {
+  await getCityFromGeoLocation();
+
+  document.getElementById("go-btn").addEventListener("click", () => {
+    const from = document.getElementById("pickup").value;
+    const to = document.getElementById("dropoff").value;
+
+    if (from && to) {
+     window.location.href = `result.html?start=${encodeURIComponent(from)}&end=${encodeURIComponent(to)}`;
+    } else {
+      alert("Please select both locations.");
+    }
+  });
+});

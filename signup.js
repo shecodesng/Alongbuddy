@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
@@ -24,32 +24,33 @@ const signupForm = document.getElementById("signup-form");
 signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  
   const name = signupForm[0].value;
   const email = signupForm[1].value;
   const password = signupForm[2].value;
 
   try {
-    
-    await createUserWithEmailAndPassword(auth, email, password);
+    // Step 1: Create user
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-    
-    await addDoc(collection(db, "users"), {
+    // Step 2: Save user info in Firestore under their UID
+    await setDoc(doc(db, "users", user.uid), {
       name: name,
-      email: email,
-      password: password, 
+      email: email
     });
 
     console.log('User created and data added to Firestore!');
     alert("We have been expecting you!");
 
- 
- window.location.href = 'home.html';  
-    
+    // Step 3: Redirect
+    window.location.href = 'home.html';
+
   } catch (error) {
     console.error("Error: ", error);
+    alert("Sign up failed: " + error.message);
   }
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const backBtn = document.querySelector(".back-btn");

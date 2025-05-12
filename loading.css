@@ -23,7 +23,7 @@ body {
   .runner {
     width: 1519px; 
     height: 1417px;
-    background: url("assets/Images/spritesheet.png") 0 0 no-repeat;
+    background: url("assets/images/spritesheet.png") 0 0 no-repeat;
     animation: run 0.5s steps(8) infinite;
     margin: 0 auto 20px auto;
     background-size: 12152px 1417px;
