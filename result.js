@@ -19,6 +19,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+
+
 // Your existing map initialization function
 function initMap() {
   const defaultCoords = [9.05785, 7.49508]; // Abuja
@@ -47,9 +49,10 @@ function initMap() {
 
 // Only run when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
-
-  // 🗺️ Initialize the map
   initMap();
+  loadRouteSteps();
+
+
 
   // 🔘 Navigation buttons
   document.getElementById("home-btn")?.addEventListener("click", () => {
@@ -90,25 +93,35 @@ if (menuToggle && closeMenu && sideMenu) {
 
 import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-// Utility: Get query parameters (start and end)
-function getQueryParams() {
-  const urlParams = new URLSearchParams(window.location.search);
-  return {
-    start: urlParams.get("from"),
-    end: urlParams.get("to")
-  };
-}
+// Retrieve the parameters from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const start = urlParams.get("start")?.trim().toLowerCase();
+const end = urlParams.get("end")?.trim().toLowerCase();
+
+
+console.log("Start:", start, "End:", end);
 
 // Utility: Get image filename from step type
 function getStepIcon(type) {
   const map = {
-    bike: "bike.png",
+    bike: "Bike.png",
     walking: "Walking.png",
     bus: "bus.png",
-    keke: "keke.png"
+    keke: "Keke.png",
+    car: "assets/Images/Car.png",
   };
-  return `assets/Images/${map[type.toLowerCase()] || 'Walking.png'}`;
+
+  // Use default if type is missing or not a string
+  if (!type || typeof type !== "string") {
+    return "assets/Images/Walking.png";
+  }
+
+  // Match against the map
+  const icon = map[type.toLowerCase()];
+  return `assets/Images/${icon || 'Walking.png'}`;
 }
+
+
 
 // Step card renderer
 function renderStepCards(steps) {
@@ -136,16 +149,26 @@ function renderStepCards(steps) {
   });
 }
 
+function getQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    start: params.get("start"),
+    end: params.get("end")
+  };
+}
+
+
 // Main logic: fetch steps based on start and end
 async function loadRouteSteps() {
-  const { start, end } = getQueryParams();
+  const start = urlParams.get("start");
+  const end = urlParams.get("end");
 
   if (!start || !end) {
     console.warn("Start or End not provided");
     return;
   }
 
-  const routesRef = collection(db, "routes");
+  const routesRef = collection(db, "Routes");
   const q = query(routesRef, where("start", "==", start.trim()),
   where("end", "==", end.trim()));
   const querySnapshot = await getDocs(q);
@@ -156,10 +179,13 @@ async function loadRouteSteps() {
   } else {
     alert("No route found for selected start and end points.");
   }
+  if (!querySnapshot.empty) {
+  const routeData = querySnapshot.docs[0].data();
+  console.log("Route data:", routeData); // 🔍 Confirm it has a Steps array
+  renderStepCards(routeData.Steps);
+} else {
+  console.warn("No matching route found.");
+}
 }
 
-// Call it after DOM loads
-document.addEventListener("DOMContentLoaded", () => {
-  loadRouteSteps();
-});
 
