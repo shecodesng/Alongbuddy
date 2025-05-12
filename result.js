@@ -104,10 +104,10 @@ console.log("Start:", start, "End:", end);
 // Utility: Get image filename from step type
 function getStepIcon(type) {
   const map = {
-    bike: "Bike.png",
-    walking: "Walking.png",
-    bus: "bus.png",
-    keke: "Keke.png",
+    bike: "assets/Images/Bike.png",
+    walking: "assets/Images/Walking.png",
+    bus: "assets/Images/Bus.png",
+    keke: "assets/Images/Keke.png",
     car: "assets/Images/Car.png",
   };
 
