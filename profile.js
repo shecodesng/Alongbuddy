@@ -46,7 +46,7 @@ document.getElementById("home-btn")?.addEventListener("click", () => {
   window.location.href = "home.html";
 });
 document.getElementById("activity-btn")?.addEventListener("click", () => {
-  window.location.href = "activity.html";
+  window.location.href = "search.html";
 });
 document.getElementById("profile-btn")?.addEventListener("click", () => {
   window.location.href = "profile.html";
@@ -54,6 +54,10 @@ document.getElementById("profile-btn")?.addEventListener("click", () => {
 document.getElementById("menu-profile-btn")?.addEventListener("click", () => {
   window.location.href = "profile.html";
 });
+
+document.getElementById("menu-logout-btn")?.addEventListener("click", () => {
+    window.location.href = "login.html";
+  });
 
 // === Auth State & Profile Population ===
 onAuthStateChanged(auth, async (user) => {

@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("activity-btn")?.addEventListener("click", () => {
-    window.location.href = "activity.html";
+    window.location.href = "search.html";
   });
 
   document.getElementById("profile-btn")?.addEventListener("click", () => {
@@ -69,6 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("menu-profile-btn")?.addEventListener("click", () => {
     window.location.href = "profile.html";
+  });
+  document.getElementById("menu-logout-btn")?.addEventListener("click", () => {
+    window.location.href = "login.html";
   });
 });
 
@@ -104,10 +107,10 @@ console.log("Start:", start, "End:", end);
 // Utility: Get image filename from step type
 function getStepIcon(type) {
   const map = {
-    bike: "assets/Images/Bike.png",
-    walking: "assets/Images/Walking.png",
-    bus: "assets/Images/Bus.png",
-    keke: "assets/Images/Keke.png",
+    bike: "Bike.png",
+    walking: "Walking.png",
+    bus: "bus.png",
+    keke: "Keke.png",
     car: "assets/Images/Car.png",
   };
 

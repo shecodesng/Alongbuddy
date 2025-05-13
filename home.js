@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("activity-btn")?.addEventListener("click", () => {
-    window.location.href = "activity.html";
+    window.location.href = "search.html";
   });
 
   document.getElementById("profile-btn")?.addEventListener("click", () => {
@@ -99,6 +99,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("menu-profile-btn")?.addEventListener("click", () => {
     window.location.href = "profile.html";
   });
+
+  document.getElementById("menu-logout-btn")?.addEventListener("click", () => {
+    window.location.href = "login.html";
+  });
+
 
   // 🔍 Search input
   document.getElementById("searchInput")?.addEventListener("click", () => {
