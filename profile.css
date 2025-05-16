@@ -159,6 +159,7 @@ body, html {
   margin: 4px 0;
 }
 
+
 .icon {
   width: 14px;
   height: 14px;
@@ -332,3 +333,11 @@ body, html {
   width: 90%;
   font-family: 'Poppins', sans-serif;
 }
+
+.profile-logo {
+  display: block;
+  margin: 0 auto;
+  width: 70px; /* or try 40px if still too large */
+  height: auto; /* keeps aspect ratio */
+}
+

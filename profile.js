@@ -326,17 +326,28 @@ const CONTRACT_ABI = [
 async function mintContributorNFT(web3, userAddress) {
   const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
-  // Replace with your own IPFS metadata URL
+  // Replace with your actual IPFS metadata URI
   const metadataURI = "ipfs://bafkreiftxlkyz7qfr5jsnvtf723xgdakv37orztb72ittlttq4cv4vjfwa";
 
   try {
-    await contract.methods.mint(userAddress, metadataURI).send({ from: userAddress });
+    const tx = await contract.methods.mint(userAddress, metadataURI).send({ from: userAddress });
+    
+    // ✅ Mint successful, now call the button change function
     showPopup("✅ Contributor NFT minted!");
+    onMintSuccess(); // <-- this is what was missing
   } catch (error) {
     console.error("Minting failed:", error);
     showPopup("❌ Minting failed. See console for details.");
   }
 }
+
+function onMintSuccess() {
+  const button = document.getElementById('becomeContributorBtn');
+  button.textContent = 'Contributor!';
+  button.disabled = true; // Optional: disables the button
+  button.classList.add('success'); // Optional: add a CSS class for new style
+}
+
 
 //Buddy points 
 onAuthStateChanged(auth, async (user) => {
