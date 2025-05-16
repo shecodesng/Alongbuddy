@@ -99,3 +99,15 @@ body {
     gap: 8px;
   }
   
+  .forgot-password-link {
+  display: block;
+  text-align: right;
+  margin: 8px 0;
+  font-size: 0.9em;
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}

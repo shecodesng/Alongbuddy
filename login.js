@@ -74,3 +74,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+// inside DOMContentLoaded or after your other event listeners
+
+const forgotPasswordLink = document.getElementById("forgot-password-link");
+if (forgotPasswordLink) {
+  forgotPasswordLink.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    // Ask for the user's email
+    const email = prompt("Please enter your email to receive password reset instructions:");
+
+    if (!email) {
+      alert("Email is required to reset password.");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      alert("Password reset email sent! Please check your inbox.");
+    } catch (error) {
+      alert("Error sending password reset email: " + error.message);
+    }
+  });
+}

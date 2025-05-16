@@ -33,9 +33,10 @@
       <p id="profileName">No Name</p>
       <p id="profileEmail">No Email</p>
       <p class="handle">
-        <img src="assets/vector.png" class="icon" />
-        <span id="baseNameText">Connect Base Name</span>
-      </p>
+  <img src="assets/vector.png" class="icon" />
+  <span id="baseNameText">Connect Wallet</span>
+</p>
+
       <p class="points" id="pointsDisplay">
         <img src="assets/group.png" class="icon" /> Loading Buddy Points...
       </p>
@@ -44,7 +45,8 @@
 
     <div class="action-buttons">
       <button class="action-btn" id="editProfileBtn">Edit Profile</button>
-      <button class="action-btn" onclick="window.open('https://cool-tadpole-22b.notion.site/1f02c5b322a181e4921bee880fbf5687?pvs=105', '_blank')">
+      <button class="action-btn" id="becomeContributorBtn">
+        <img src="assets/Images/alonglogo.png" alt="Logo" class="menu-logo" />
   Become a Contributor
 </button>
       <button class="action-btn" id="walletbuttonBtn">Connect Wallet</button>
@@ -56,12 +58,6 @@
 
   <div id="connectionPopup" class="popup-top"></div>
 
-  <div id="baseNameModal">
-    <div class="modal-content">
-      <p>No Base Name found.</p>
-      <a href="https://app.basename.domains" target="_blank">Click here to register</a><br><br>
-      <button id="closeBaseNameModal">X Close</button>
-    </div>
   </div>
   <div class="nav-buttons">
     <button id="profile-btn"><img src="assets/account_circle.png" alt="Account" /></button>

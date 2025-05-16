@@ -136,23 +136,63 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-//base name update
+//wallet update
+
+const baseNameText = document.getElementById("baseNameText");
+
+// Check for auth state
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    try {
+      const userDocRef = doc(db, "users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        const address = userData.walletAddress;
+
+        if (address) {
+          baseNameText.textContent = shortenAddress(address); // default
+          checkBaseName(address); // check for Base name
+        } else {
+          baseNameText.textContent = "No wallet address found";
+        }
+      } else {
+        baseNameText.textContent = "User data not found";
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      baseNameText.textContent = "Error loading wallet info";
+    }
+  } else {
+    baseNameText.textContent = "Not logged in";
+  }
+});
+
+// Function to shorten wallet address like 0x1234...ABCD
+function shortenAddress(address) {
+  return address.slice(0, 6) + "..." + address.slice(-4);
+}
+
+// Modified Base name checker
 async function checkBaseName(address) {
   try {
     const response = await fetch(`https://deep-index.moralis.io/api/v2/${address}/resolve`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'X-API-Key': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjRhZjI4YjUyLTgxMWQtNGQ2Yi1iOWM1LTk2NmY1MzNlMzUyNiIsIm9yZ0lkIjoiNDQ2MzEwIiwidXNlcklkIjoiNDU5MTkyIiwidHlwZUlkIjoiNzVmMjc5YmUtZTRmZS00MDI4LTk1YTMtOThkMjAyZGMyMGJiIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE3NDY4ODIxMDcsImV4cCI6NDkwMjY0MjEwN30.2RfEpVrcq-n9hf3Ox-KvGX5WjHJXBkI5oeCTsyyzZuY',
-        'accept': 'application/json'
-      }
+        "X-API-Key": "your-key-here",
+        accept: "application/json",
+      },
     });
 
     const data = await response.json();
 
     if (data?.name) {
+      baseNameText.textContent = data.name; // update DOM
       showPopup(`🎉 Your Base Name is: <b>${data.name}</b>`);
     } else {
-      showBaseNameModal(); // Show modal if name doesn't exist
+      // No Base name found, keep address or show modal
+      showBaseNameModal?.();
     }
   } catch (err) {
     console.error("Error fetching base name:", err);

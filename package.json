@@ -1,0 +1,34 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "calls.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shecodesng/Alongbuddy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shecodesng/Alongbuddy/issues"
+  },
+  "homepage": "https://github.com/shecodesng/Alongbuddy#readme",
+  "devDependencies": {
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@walletconnect/ethereum-provider": "^2.20.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "viem": "^2.29.3",
+    "wagmi": "^2.15.3",
+    "web3modal": "^1.9.12"
+  }
+}

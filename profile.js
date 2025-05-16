@@ -160,6 +160,32 @@ const web3Modal = new window.Web3Modal.default({
   providerOptions,
 });
 
+//resets to see if the wallet is connected
+async function initWalletOnLoad() {
+  if (web3Modal.cachedProvider) {
+    try {
+      provider = await web3Modal.connect();
+      const web3 = new Web3(provider);
+      const accounts = await web3.eth.getAccounts();
+      const address = accounts[0];
+
+      toggleWalletButtons(true);
+      checkBaseName(address); // Updates the UI with the wallet address
+
+      provider.on("disconnect", () => {
+        showPopup("🔌 Wallet disconnected.");
+        toggleWalletButtons(false);
+
+        const baseNameText = document.getElementById("baseNameText");
+        if (baseNameText) baseNameText.textContent = "Connect Wallet";
+      });
+    } catch (error) {
+      console.error("Auto-connect error:", error);
+    }
+  }
+}
+
+
 // Connect Wallet
 document.getElementById("walletbuttonBtn")?.addEventListener("click", async () => {
   try {
@@ -247,27 +273,12 @@ function showPopup(message) {
   }
 }
 
-// Base Name check using fetch
+// Wallet check using fetch
 async function checkBaseName(address) {
-  try {
-    const response = await fetch(`https://deep-index.moralis.io/api/v2/${address}/resolve`, {
-      method: 'GET',
-      headers: {
-        'X-API-Key': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjRhZjI4YjUyLTgxMWQtNGQ2Yi1iOWM1LTk2NmY1MzNlMzUyNiIsIm9yZ0lkIjoiNDQ2MzEwIiwidXNlcklkIjoiNDU5MTkyIiwidHlwZUlkIjoiNzVmMjc5YmUtZTRmZS00MDI4LTk1YTMtOThkMjAyZGMyMGJiIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE3NDY4ODIxMDcsImV4cCI6NDkwMjY0MjEwN30.2RfEpVrcq-n9hf3Ox-KvGX5WjHJXBkI5oeCTsyyzZuY',
-        'accept': 'application/json'
-      }
-    });
-
-    const data = await response.json();
-
-    if (data?.name) {
-      showPopup(`🎉 Your Base Name is: <b>${data.name}</b>`);
-    } else {
-      showBaseNameModal(); // Show modal if name doesn't exist
-    }
-  } catch (err) {
-    console.error("Error fetching base name:", err);
-    showPopup("❌ Error fetching Base Name.");
+  showPopup(`🔗 Wallet Connected: <b>${address}</b>`);
+  const baseNameText = document.getElementById("baseNameText");
+  if (baseNameText) {
+    baseNameText.textContent = address;
   }
 }
 
@@ -280,6 +291,52 @@ document.getElementById("closeBaseNameModal")?.addEventListener("click", () => {
   const modal = document.getElementById("baseNameModal");
   if (modal) modal.style.display = "none";
 });
+
+// === Smart Contract Setup ===
+const CONTRACT_ADDRESS = "0x8b228e611330896AFb1c72070adD3B75794e8420";
+
+const CONTRACT_ABI = [
+  {
+    "inputs": [
+      { "internalType": "address", "name": "initialOwner", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "to", "type": "address" },
+      { "internalType": "string", "name": "uri", "type": "string" }
+    ],
+    "name": "mint",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nextTokenId",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+// Function to mint the Contributor NFT
+async function mintContributorNFT(web3, userAddress) {
+  const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+
+  // Replace with your own IPFS metadata URL
+  const metadataURI = "ipfs://bafkreiftxlkyz7qfr5jsnvtf723xgdakv37orztb72ittlttq4cv4vjfwa";
+
+  try {
+    await contract.methods.mint(userAddress, metadataURI).send({ from: userAddress });
+    showPopup("✅ Contributor NFT minted!");
+  } catch (error) {
+    console.error("Minting failed:", error);
+    showPopup("❌ Minting failed. See console for details.");
+  }
+}
 
 //Buddy points 
 onAuthStateChanged(auth, async (user) => {
@@ -305,4 +362,29 @@ onAuthStateChanged(auth, async (user) => {
     `;
   }
 });
+
+document.getElementById("becomeContributorBtn")?.addEventListener("click", async () => {
+  try {
+    if (!provider) {
+      showPopup("⚠️ Connect your wallet first.");
+      return;
+    }
+
+    const web3 = new Web3(provider);
+    const accounts = await web3.eth.getAccounts();
+    const account = accounts[0];
+
+    // Call your mint NFT function
+    await mintContributorNFT(web3, account);
+
+  } catch (err) {
+    console.error("Minting error:", err);
+    showPopup("❌ Failed to mint contributor badge.");
+  }
+});
+
+
+window.addEventListener("load", initWalletOnLoad);
+const baseNameText = document.getElementById("baseNameText");
+if (baseNameText) baseNameText.textContent = "Connect Wallet";
 
