@@ -292,6 +292,35 @@ document.getElementById("closeBaseNameModal")?.addEventListener("click", () => {
   if (modal) modal.style.display = "none";
 });
 
+// Add this near your other Firebase auth code in profile.js
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    try {
+      const userDocRef = doc(db, "users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        const address = userData.walletAddress;
+
+        if (address) {
+          // Use the same shortenAddress function as home.js
+          baseNameText.textContent = shortenAddress(address);
+          checkBaseName(address); // Now this will work consistently
+          toggleWalletButtons(true); // Show disconnect button
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
+});
+
+// Add this helper function if not already in profile.js
+function shortenAddress(address) {
+  return address ? address.slice(0, 6) + "..." + address.slice(-4) : "Connect Wallet";
+}
+
 // === Smart Contract Setup ===
 const CONTRACT_ADDRESS = "0x8b228e611330896AFb1c72070adD3B75794e8420";
 
